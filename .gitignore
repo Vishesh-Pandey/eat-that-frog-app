@@ -1,0 +1,25 @@
+**/node_modules
+
+
+# Ignore build directories
+**/build/
+**/dist/
+
+# Ignore log and backup files
+**/*.log*
+**/*.bak
+
+# Ignore dependency directories
+**/bower_components/
+**/jspm_packages/
+
+# Ignore IDE-specific files
+**/.vscode/
+**/.idea/
+
+# Ignore OS-specific files
+**/.DS_Store
+**/Thumbs.db
+
+# Ignore swap files
+**/*.swp
