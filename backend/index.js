@@ -49,14 +49,14 @@ app.get("/api/todos", (req, res) => {
 
 // API endpoint for creating a new todo
 app.post("/api/todos", (req, res) => {
-  const { title, description } = req.body;
+  const { type, title, description } = req.body;
 
   if (!title || !description) {
     res.status(400).json({ error: "Missing title or description" });
     return;
   }
 
-  const todo = { title, description };
+  const todo = { title, description, type };
 
   pool.query("INSERT INTO todos SET ?", todo, (error, result) => {
     if (error) {
