@@ -35,7 +35,7 @@ const pool = mysql.createPool(dbConfig);
 app.use(express.json());
 
 // API endpoint for getting all todos
-app.get("/api/todos", (req, res) => {
+app.get("/api/alltodos", (req, res) => {
   pool.query("SELECT * FROM todos", (error, results) => {
     if (error) {
       console.error(error);
@@ -46,6 +46,28 @@ app.get("/api/todos", (req, res) => {
     res.json(results);
   });
 });
+
+app.get("/api/todos/:type", (req, res) => {
+  const { type } = req.params;
+
+  pool.query("SELECT * FROM todos WHERE type = ?", type, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: "Server error" });
+      return;
+    }
+
+    if (results.length === 0) {
+      // { error: "Todo not found" }
+      res.json([]);
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
+// API endpoint for getting a single todo")
 
 // API endpoint for creating a new todo
 app.post("/api/todos", (req, res) => {

@@ -1,3 +1,4 @@
+import TaskPanel from "./components/TaskPanel";
 import "./App.css";
 import { useEffect, useState } from "react";
 
@@ -8,7 +9,6 @@ function App() {
   const [type, setType] = useState("");
 
   const addTodo = () => {
-    console.log(type);
     fetch("http://localhost:3000/api/todos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -21,9 +21,11 @@ function App() {
   };
 
   const getTodos = () => {
-    fetch("http://localhost:3000/api/todos")
+    fetch("http://localhost:3000/api/alltodos")
       .then((data) => data.json())
-      .then((convertedData) => setTodos(convertedData))
+      .then((convertedData) => {
+        setTodos(convertedData);
+      })
       .catch((error) => console.log("Error", error));
   };
 
@@ -97,7 +99,7 @@ function App() {
         {todos.map((todo, index) => {
           return (
             <div
-              key={todo.title}
+              key={todo.id}
               className="border-black border-2 p-4 mx-2 rounded-md bg-pink-300 hover:bg-pink-200 transition duration-300 md:w-1/4 sm:w-1/4 w-full my-2"
             >
               <div className="flex justify-between">
@@ -117,6 +119,7 @@ function App() {
           );
         })}
       </div>
+      <TaskPanel />
     </>
   );
 }
