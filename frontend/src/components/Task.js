@@ -11,6 +11,13 @@ const Task = ({ type }) => {
     setTask(data);
   };
 
+  const deleteTask = async (id) => {
+    const response = await fetch(`http://localhost:3000/api/todos/${id}`, {
+      method: "DELETE",
+    });
+    getTask();
+  }
+
   useEffect(() => {
     getTask();
   }, []);
@@ -21,7 +28,7 @@ const Task = ({ type }) => {
       {task.map((element) => {
         return (
           <div key={element.id} className="bg-grey border-4">
-            <h3>{element.title}</h3>
+            <h3>{element.title} <button onClick={() => deleteTask(element.id)} className="bg-red-400 float-right hover:text-white p-1">delete</button></h3>
             <p>{element.description}</p>
           </div>
         );

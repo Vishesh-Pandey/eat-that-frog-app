@@ -95,6 +95,8 @@ function App() {
         </button>
       </div>
 
+      <TaskPanel />
+
       <div className="bg-slate-300 flex flex-wrap w-11/12 m-auto rounded-md p-10">
         {todos.map((todo, index) => {
           return (
@@ -119,7 +121,7 @@ function App() {
           );
         })}
       </div>
-      <TaskPanel />
+      
     </>
   );
 }
