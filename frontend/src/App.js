@@ -1,6 +1,6 @@
-import TaskPanel from "./components/TaskPanel";
-import "./App.css";
 import { useEffect, useState } from "react";
+import "./App.css";
+import TaskPanel from "./components/TaskPanel";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -14,7 +14,8 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type, title, description }),
     })
-      .then(() => {
+      .then((todo) => {
+        setTodos([...todos, todo]);
         alert("Todo added");
       })
       .catch((error) => console.log("Error", error));
@@ -121,7 +122,6 @@ function App() {
           );
         })}
       </div>
-      
     </>
   );
 }
