@@ -4,21 +4,8 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors());
-
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "eat_that_frog_app",
-});
-
-connection.connect((err) => {
-  if (err) {
-    console.error("Error connecting to MySQL server: " + err.stack);
-    return;
-  }
-  console.log("Connected to MySQL server as ID " + connection.threadId);
-});
+// Middleware for parsing JSON request body
+app.use(express.json());
 
 // MySQL database configuration
 const dbConfig = {
@@ -28,11 +15,18 @@ const dbConfig = {
   database: "eat_that_frog_app",
 };
 
+const connection = mysql.createConnection(dbConfig);
+
+connection.connect((err) => {
+  if (err) {
+    console.error("Error connecting to MySQL server: " + err.stack);
+    return;
+  }
+  console.log("Connected to MySQL server as ID " + connection.threadId);
+});
+
 // Create MySQL connection pool
 const pool = mysql.createPool(dbConfig);
-
-// Middleware for parsing JSON request body
-app.use(express.json());
 
 // API endpoint for getting all todos
 app.get("/api/alltodos", (req, res) => {
@@ -66,8 +60,6 @@ app.get("/api/todos/:type", (req, res) => {
     res.json(results);
   });
 });
-
-// API endpoint for getting a single todo")
 
 // API endpoint for creating a new todo
 app.post("/api/todos", (req, res) => {
