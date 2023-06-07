@@ -97,7 +97,7 @@ function App() {
       </div>
 
       <TaskPanel />
-
+      <h3 className="w-11/12 m-auto">All Task</h3>
       <div className="bg-slate-300 flex flex-wrap w-11/12 m-auto rounded-md p-10">
         {todos.map((todo, index) => {
           return (
