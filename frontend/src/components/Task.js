@@ -9,8 +9,6 @@ const Task = ({ type }) => {
   const getTask = async () => {
     const response = await fetch(`http://localhost:3000/api/todos/${type}`);
     const data = await response.json();
-    console.log(data);
-    console.log(typeof data);
     setTask(data);
   };
 
@@ -28,10 +26,12 @@ const Task = ({ type }) => {
       body: JSON.stringify({ type, title, description }),
     })
       .then((todo) => {
-        alert("Todo added");
+        getTask();
       })
       .catch((error) => console.log("Error", error));
-    getTask();
+
+    setTitle("");
+    setDescription("");
   };
 
   useEffect(() => {
