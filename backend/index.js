@@ -88,7 +88,7 @@ app.post("/api/todos", (req, res) => {
 app.delete("/api/todos/:id", (req, res) => {
   const { id } = req.params;
 
-  pool.query("DELETE FROM todos WHERE id = ?", id, (error, result) => {
+  pool.query(`DELETE FROM todos WHERE id = ${id}`, (error, result) => {
     if (error) {
       console.error(error);
       res.status(500).json({ error: "Server error" });

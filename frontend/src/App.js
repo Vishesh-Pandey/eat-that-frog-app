@@ -50,6 +50,8 @@ function App() {
     <>
       <h1 className="w-11/12 m-auto p-4 ">Eat Tha Frog - Todos</h1>
 
+      <TaskPanel />
+
       <div className="bg-slate-300 m-auto my-10 p-10 w-11/12 border-black border-1 flex md:flex-row flex-col justify-between">
         <select
           id="dropdown"
@@ -96,8 +98,7 @@ function App() {
         </button>
       </div>
 
-      <TaskPanel />
-
+      <h3 className="w-11/12 m-auto">All Task</h3>
       <div className="bg-slate-300 flex flex-wrap w-11/12 m-auto rounded-md p-10">
         {todos.map((todo, index) => {
           return (
