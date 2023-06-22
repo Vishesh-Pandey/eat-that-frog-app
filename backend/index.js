@@ -4,7 +4,6 @@ const cors = require("cors");
 
 const app = express();
 app.use(cors());
-// Middleware for parsing JSON request body
 app.use(express.json());
 
 // MySQL database configuration
@@ -36,11 +35,11 @@ app.get("/api/alltodos", (req, res) => {
       res.status(500).json({ error: "Server error" });
       return;
     }
-
     res.json(results);
   });
 });
 
+// API endpoint for getting specific type of todo
 app.get("/api/todos/:type", (req, res) => {
   const { type } = req.params;
 
@@ -105,6 +104,6 @@ app.delete("/api/todos/:id", (req, res) => {
 });
 
 // Start the server
-app.listen(3000, () => {
-  console.log("Server started on port 3000");
+app.listen(8080, () => {
+  console.log("Server started on port 8080");
 });
