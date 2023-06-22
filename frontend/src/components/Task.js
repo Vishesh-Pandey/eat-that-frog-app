@@ -7,20 +7,27 @@ const Task = ({ type }) => {
   const [description, setDescription] = useState("");
 
   const getTask = async () => {
-    const response = await fetch(`http://localhost:3000/api/todos/${type}`);
-    const data = await response.json();
-    setTask(data);
+    try {
+      const response = await fetch(`http://localhost:8080/api/todos/${type}`);
+      if (!response.ok) {
+        throw new Error("Request failed with status: " + response.status);
+      }
+      const data = await response.json();
+      setTask(data);
+    } catch (error) {
+      setTask([]);
+    }
   };
 
   const deleteTask = async (id) => {
-    const response = await fetch(`http://localhost:3000/api/todos/${id}`, {
+    await fetch(`http://localhost:8080/api/todos/${id}`, {
       method: "DELETE",
     });
     getTask();
   };
 
   const addTask = async () => {
-    fetch("http://localhost:3000/api/todos", {
+    fetch("http://localhost:8080/api/todos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ type, title, description }),
@@ -66,7 +73,7 @@ const Task = ({ type }) => {
       </div>
       {task.map((element) => {
         return (
-          <div key={element.id} className="bg-grey border-4">
+          <div key={element.id} className="bg-grey border-4 ">
             <h3>
               {element.title}
               <button
